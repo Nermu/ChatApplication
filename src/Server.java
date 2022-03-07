@@ -45,6 +45,7 @@ public class Server implements Runnable {
             bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             input = new BufferedReader(new InputStreamReader(System.in));
             printStream = new PrintStream(socket.getOutputStream());
+
         } catch (IOException e) {
             System.out.println("Could not listen on port");
             e.printStackTrace();

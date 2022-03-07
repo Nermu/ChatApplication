@@ -36,6 +36,7 @@ public class Client implements Runnable {
                 System.out.println("Please enter username : ");
                 break;
 
+
             } catch (IOException e) {
                 System.out.println("Failed to connect, try again");
             }
@@ -48,35 +49,27 @@ public class Client implements Runnable {
             printStream = new PrintStream(socket.getOutputStream());
 
             String user = bufferedReader.readLine();
+            String message;
             while (true) {
 
                 System.out.print("User <[" + user + "]> : ");
+
                 data = bufferedReader.readLine();
-                printStream.println("\nMessage<[" + data + "]>");
-                printStream.println("[" + user + "] : [" + data + "]");
+                System.out.print("Message<[" + data + "]>\n");
+                printStream.println("\n<[" + data + "]>");
+                printStream.println("[" + user + "]: " + "[" + data + "]");
 
                 if (data.contains("exit")) {
-                    while (true) {
-                        try {
-                            socket.close();
-                            Socket newSocket = new Socket(hostName, portNumber);
-                            System.out.println("Connection Successfully");
-                            System.out.println("Please enter new username");
-
-                            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-                            PrintStream newPrintStream = new PrintStream(newSocket.getOutputStream());
-
-                            String newUser = br.readLine();
-                            while (true) {
-                                System.out.print("User <[" + newUser + "]> : ");
-                                data = br.readLine();
-                                newPrintStream.println("\nMessage<[" + data + "]>");
-                                newPrintStream.println("[" + newUser + "] : [" + data + "]");
-                            }
-                        }catch(Exception e){
-                            System.out.println("Failed to connect again, try again");
+                    System.out.println("User <[" + user + "]> : exit from chat ");
+                        System.out.println("Please enter new username");
+                        String newUser = bufferedReader.readLine();
+                        while (true)
+                        {
+                            System.out.print("User <[" + newUser + "]> : ");
+                            data = bufferedReader.readLine();
+                            printStream.println("\nMessage<[" + data + "]>");
+                            printStream.println( "[" + newUser + "]: " + "[" + data + "]");
                         }
-                    }
                 }
             }
         } catch (IOException e) {
